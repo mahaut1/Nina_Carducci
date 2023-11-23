@@ -107,8 +107,13 @@
     }
   
     function openLightBox($element, lightboxId) {
-      // Logique pour ouvrir la lightbox avec l'élément cliqué
+      var imageUrl = $element.attr("src");
+      $("#" + lightboxId)
+        .find(".lightboxImage")
+        .attr("src", imageUrl);
+      $("#" + lightboxId).modal("toggle");
     }
+    
   
     function prevImage(lightboxId) {
       // Logique pour afficher l'image précédente dans la lightbox
