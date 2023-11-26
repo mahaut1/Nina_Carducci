@@ -116,20 +116,80 @@
     
   
     function prevImage(lightboxId) {
-      // Logique pour afficher l'image précédente dans la lightbox
+      var $lightboxImage = $("#" + lightboxId).find(".lightboxImage");
+      var currentImageSrc = $lightboxImage.attr("src");
+      var $galleryImages = $(".gallery").find(".gallery-item img");
+      var currentIndex = $galleryImages.index($galleryImages.filter('[src="' + currentImageSrc + '"]'));
+    
+      var prevIndex = currentIndex - 1;
+      if (prevIndex < 0) {
+        prevIndex = $galleryImages.length - 1;
+      }
+    
+      var prevImageSrc = $galleryImages.eq(prevIndex).attr("src");
+      $lightboxImage.attr("src", prevImageSrc);
     }
+    
   
     function nextImage(lightboxId) {
-      // Logique pour afficher l'image suivante dans la lightbox
+      var $lightbox = $("#" + lightboxId);
+      var $lightboxImage = $lightbox.find(".lightboxImage");
+      var imagesArray = $lightbox.data("imagesArray");
+      var currentIndex = $lightbox.data("currentIndex");
+    
+      var nextIndex = (currentIndex + 1) % imagesArray.length;
+      var nextImageSrc = imagesArray[nextIndex];
+      $lightboxImage.attr("src", nextImageSrc);
+    
+      $lightbox.data("currentIndex", nextIndex);
     }
+    
   
     function showItemTags($gallery, position) {
-      // Logique pour afficher les tags de la galerie
+      var tagsCollection = [];
+    
+      // Collecter les tags uniques de la galerie
+      $gallery.find(".gallery-item").each(function() {
+        var tag = $(this).data("gallery-tag");
+        if (tag && tagsCollection.indexOf(tag) === -1) {
+          tagsCollection.push(tag);
+        }
+      });
+    
+      // Créer l'élément HTML pour afficher les tags
+      var tagItems = '<li class="nav-item"><span class="nav-link active active-tag" data-images-toggle="all">Tous</span></li>';
+      $.each(tagsCollection, function(index, value) {
+        tagItems += `<li class="nav-item active"><span class="nav-link" data-images-toggle="${value}">${value}</span></li>`;
+      });
+      var tagsRow = `<ul class="my-4 tags-bar nav nav-pills">${tagItems}</ul>`;
+    
+      // Afficher les tags en fonction de la position spécifiée
+      if (position === "bottom") {
+        $gallery.append(tagsRow);
+      } else if (position === "top") {
+        $gallery.prepend(tagsRow);
+      } else {
+        console.error(`Unknown tags position: ${position}`);
+      }
     }
+    
   
     function filterByTag($clickedTag, $gallery) {
-      // Logique pour filtrer les éléments de la galerie par tag
+      var tag = $clickedTag.data("images-toggle");
+    
+      $gallery.find(".gallery-item").each(function() {
+        var $item = $(this);
+        var itemTag = $item.data("gallery-tag");
+        if (tag === "all" || tag === itemTag) {
+          $item.parents(".item-column").show(300);
+        } else {
+          $item.parents(".item-column").hide(300);
+        }
+      });
+    
+      $clickedTag.addClass("active-tag").siblings().removeClass("active-tag");
     }
+    
   
   })(jQuery);
   
