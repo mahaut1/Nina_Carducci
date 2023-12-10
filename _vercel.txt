@@ -1,2 +1,0 @@
-vc-domain-verify=norman.ns.cloudflare.com,7ba09169f9d89d3ff9c5
-vc-domain-verify=sureena.ns.cloudflare.com,0f6adef32aa9a9f43579
