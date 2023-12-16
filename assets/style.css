@@ -325,6 +325,10 @@ input[type="submit"] {
 		flex-direction: column;
 		padding-inline: 0;
 	}
+	.gallery-item{
+		position: a;
+		width: 320px;
+	}
 	.top-header .nav, .top-header .nav ul {
 		width: 100%;
 		padding: 0 0 0 0;
