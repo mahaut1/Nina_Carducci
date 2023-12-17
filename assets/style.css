@@ -136,7 +136,11 @@ body {
 	display: flex;
 	font-size: 24px;
 }
-
+.selected-category {
+	background-color: gold; /* Fond doré */
+	color: #fff; 
+  }
+  
 .quote {
 	font-family: 'Spectral';
 	font-style: italic;

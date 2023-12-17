@@ -192,6 +192,7 @@
           index = i;
         }
       });
+      index = (index + 1) % imagesCollection.length;
       next = imagesCollection[index] || imagesCollection[0];
       $(".lightboxImage").attr("src", $(next).attr("src"));
     },
@@ -234,6 +235,10 @@
       } else {
         console.error(`Unknown tags position: ${position}`);
       }
+      $('.nav-link').on('click', function() {
+        $('.nav-link').removeClass('selected-category'); // Supprime la sélection actuelle
+        $(this).addClass('selected-category'); // Ajoute une classe pour la catégorie sélectionnée
+      });
     },
     filterByTag() {
       if ($(this).hasClass("active-tag")) {

@@ -12,4 +12,11 @@ $(document).ready(function() {
         showTags: true,
         tagsPosition: 'top'
     });
+    $('.tags-bar .nav-link').on('click', function() {
+        $('.tags-bar .nav-link').removeClass('selected-category');
+        $(this).addClass('selected-category');
+      });
 });
+
+
+
