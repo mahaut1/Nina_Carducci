@@ -42,11 +42,11 @@
   };
   $.fn.mauGallery.defaults = {
     columns: 3,
-    lightBox: true,
+    lightBox: !0,
     lightboxId: null,
-    showTags: true,
+    showTags: !0,
     tagsPosition: "bottom",
-    navigation: true
+    navigation: !0
   };
   $.fn.mauGallery.listeners = function(options) {
     $(".gallery-item").on("click", function() {
@@ -153,6 +153,7 @@
           index = i ;
         }
       });
+      index = (index - 1) % imagesCollection.length;
       next =
         imagesCollection[index] ||
         imagesCollection[imagesCollection.length - 1];
@@ -235,10 +236,6 @@
       } else {
         console.error(`Unknown tags position: ${position}`);
       }
-      $('.nav-link').on('click', function() {
-        $('.nav-link').removeClass('selected-category'); // Supprime la sélection actuelle
-        $(this).addClass('selected-category'); // Ajoute une classe pour la catégorie sélectionnée
-      });
     },
     filterByTag() {
       if ($(this).hasClass("active-tag")) {
